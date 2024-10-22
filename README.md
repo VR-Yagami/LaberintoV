@@ -9,4 +9,6 @@ las coordenadas que se le quiera dar a demas de como este construido su laberint
 /*  static float rx, ry, rz, a = -90; 
 algo parecido es en esta parte, este es para rotal al personaje o la camara, en este caso se le roto -90 grados para que apareciera de frenete ala entrada, ustedes pueden ir rotando hasta que se muestre de frente */
 
+En la linea 75 glu.gluPerspective(45.0f, h, 1.0, 500.0);, en esta parte es la perspectiva de la camara en este caso lo que se debe de hacer es colocarle 500 para poder ver de lejos el laberinto, pueden colocarle mas o pueden hacerlo con menos.
+
 
