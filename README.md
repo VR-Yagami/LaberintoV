@@ -37,6 +37,41 @@ Es necesario colocar este trozo de codigo:
         gl.glRotatef(rz, 0, 0, 1);
         //Estas funciones son para que pueda rotar la camara sin ningun problema.
 
+ Es muy importante tener en cuenta estos 2 trozos de codigo ya que daran posicion a tu personajq que quieras crear, si te das cuenta simplemente son distancias, se guardan en variables para X y Z de tipo flotante, se suma lo que es la camara de x y z, (cx y cz), que multiplica a -4, el -4 es para darle un acercamiento al personaje, este se puede ir probando con distintos numueros, incluso si se el numero no pasa nada pueden ser numeros positivos y negativos o simplemente quitar la multiplicacion y dicho numero:
+
+ Ejemplo con numeros:
+ /      float sX = (float) (tx + cx * -4);
+        float sZ = (float) (tz + cz * -4);
+
+Ejemplo sin numeros:
+ /      float sX = (float) (tx + cx);
+        float sZ = (float) (tz + cz);
+
+//Se recomienda siempre poner sX y sZ donde pertenecen, en este caso se le asignaron numeros para darle forma de ojos al cuadro por ello tiene un -.2 y un +.2, para que esten separados.
+
+/      gl.glPushMatrix();
+       float sX = (float) (tx + cx * -4);
+       float sZ = (float) (tz + cz * -4);
+        
+/       gl.glPushMatrix();
+        gl.glTranslatef(sX, (float) ty, sZ);
+        gl.glColor3f(1.0f, 1.0f, 1.0f); // WHITE
+        glut.glutWireCube(1);
+        gl.glPopMatrix();
+
+/       gl.glPushMatrix();
+        gl.glTranslatef((float) ((float) sX - .2), (float) ty, sZ);
+        gl.glColor3f(1.0f, 1.0f, 1.0f); // WHITE
+        glut.glutWireTorus(.025, 0.1, 5, 5);
+        gl.glPopMatrix();
+
+/       gl.glPushMatrix();
+        gl.glTranslatef((float) ((float) sX + .2), (float) ty, sZ);
+        gl.glColor3f(1.0f, 1.0f, 1.0f); // WHITE
+        glut.glutWireTorus(.025, 0.1, 5, 5);
+        gl.glPopMatrix();
+        gl.glPopMatrix();
+
 NOTA: es necesario que lleve todas esas partes ya que es lo escencial del codigo y no importa que coordenadas tenga el laberinto siempre y cuando tenga estos trozos de codigo.
   
 
