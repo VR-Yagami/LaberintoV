@@ -6,10 +6,11 @@ Descargar los archivos JOGL
 
 Las variables para darle movimiento, ya se rotacion y traslacion:
 
-/*  static double tx = 3, ty = 2, tz = 3;//Lo trasladan y se le da una posicion fija, en este se le modificara dependiendo 
-las coordenadas que se le quiera dar a demas de como este construido su laberinto. */
-/*  static float rx, ry, rz, a = -90; 
-algo parecido es en esta parte, este es para rotal al personaje o la camara, en este caso se le roto -90 grados para que apareciera de frenete ala entrada, ustedes pueden ir rotando hasta que se muestre de frente */
+static double tx = 3, ty = 2, tz = 3;//Lo trasladan y se le da una posicion fija, en este se le modificara dependiendo 
+las coordenadas que se le quiera dar a demas de como este construido su laberinto.
+
+static float rx, ry, rz, a = -90; 
+Algo parecido es en esta parte, este es para rotal al personaje o la camara, en este caso se le roto -90 grados para que apareciera de frenete ala entrada, ustedes pueden ir rotando hasta que se muestre de frente
 
 En la linea 75 glu.gluPerspective(45.0f, h, 1.0, 500.0);, en esta parte es la perspectiva de la camara en este caso lo que se debe de hacer es colocarle 500 para poder ver de lejos el laberinto, pueden colocarle mas o pueden hacerlo con menos.
 
@@ -71,6 +72,80 @@ Ejemplo sin numeros:
         glut.glutWireTorus(.025, 0.1, 5, 5);
         gl.glPopMatrix();
         gl.glPopMatrix();
+
+/       Finalmente se agrega lo siguiente para poder moverlo:
+
+/     if (e.getKeyCode() == KeyEvent.VK_A) {
+            a -= 1.5; // Gira hacia la izquierda (con una velocidad de 1.5)
+        }
+        if (e.getKeyCode() == KeyEvent.VK_D) {
+            a += 1.5; // Gira hacia la derecha (con una velocidad de 1.5)
+        }
+
+  //En este caso se mueve con una velocidad de .5
+/        if (e.getKeyCode() == KeyEvent.VK_W) {
+            tx += .5 * Math.cos(Math.toRadians(a)); // No se reutiliza el CX ya que provoca un bug, claro se puede solucionar, pero es recomedable dejarlo asi.
+            tz += .5 * Math.sin(Math.toRadians(a)); // No se reutiliza el CZ ya que provoca un bug, claro se puede solucionar, pero es recomedable dejarlo asi.
+        }
+        if (e.getKeyCode() == KeyEvent.VK_S) {
+            tx -= .5 * Math.cos(Math.toRadians(a)); // No se reutiliza el CX ya que provoca un bug, claro se puede solucionar, pero es recomedable dejarlo asi.
+            tz -= .5 * Math.sin(Math.toRadians(a)); // No se reutiliza el CZ ya que provoca un bug, claro se puede solucionar, pero es recomedable dejarlo asi.
+        }
+
+//Apartir de este if se mueve con una velocidad de 1, esta parte solamente es para rotar de diferentes formas, acercar, alejar y mover de izquierda,derecha abajo y arriba la camara, asi para mostrar el laberinto construido con la inicial
+
+  /      if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            tx -= 1;
+        }
+
+  /    if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            tx += 1;
+        }
+
+ /       if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            ty -= 1;
+        }
+
+ /       if (e.getKeyCode() == KeyEvent.VK_UP) {
+            ty += 1;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_T) {
+            tz -= 1;
+        }
+
+/        if (e.getKeyCode() == KeyEvent.VK_Y) {
+            tz += 1;
+        }
+
+/        if (e.getKeyCode() == KeyEvent.VK_U) {
+            rx -= 1;
+        }
+
+/        if (e.getKeyCode() == KeyEvent.VK_I) {
+            rx += 1;
+        }
+
+/        if (e.getKeyCode() == KeyEvent.VK_O) {
+            ry -= 1;
+        }
+
+/        if (e.getKeyCode() == KeyEvent.VK_P) {
+            ry += 1;
+        }
+ /       if (e.getKeyCode() == KeyEvent.VK_G) {
+            rz -= 1;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_H) {
+            rz += 1;
+        }
+
+//En este ultimo if se recomienda colocar las variables acorde los tiene "configurado, establecido o inicializado desde un inicio"
+/        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            tx = tz = 3;
+            ty = 2;
+            rx = ry = rz = 0;
+            a = -90;
+        }
 
 NOTA: es necesario que lleve todas esas partes ya que es lo escencial del codigo y no importa que coordenadas tenga el laberinto siempre y cuando tenga estos trozos de codigo.
   
